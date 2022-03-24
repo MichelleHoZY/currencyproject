@@ -31,16 +31,16 @@ import jakarta.json.JsonStructure;
 public class CurrencyService {
 
     private static final String baseURL = "https://free.currconv.com/api/v7/";
-    private static String apiKey = null;
+    // private static String apiKey = null;
     public Map<String, Currency> COUNTRY_CURRENCY_MAP;
     public List<String> COUNTRY_CURRENCY_MAP_KEYSET_SORTED;
 
-    // @Value("${currconv.key}")
-    // String apiKey;
+    @Value("${CURRCONV_KEY}")
+    String apiKey;
 
     @PostConstruct
     private void init() {
-        apiKey = "f042682f5295b6696410";
+        apiKey = System.getenv("CURRCONV_KEY");
         COUNTRY_CURRENCY_MAP = getCurrencies();
         COUNTRY_CURRENCY_MAP_KEYSET_SORTED = new ArrayList<String>(COUNTRY_CURRENCY_MAP.keySet());
         Collections.sort(COUNTRY_CURRENCY_MAP_KEYSET_SORTED);
