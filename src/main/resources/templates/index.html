@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Exchange</title>
+</head>
+    <body>
+        <form method="GET" action="/convert">
+            <h1>Currency Exchange</h1>
+            <p>From: <select name="from" id="from" data-th-object="${Country_Currency_Map}">
+                <option 
+                    data-th-each="i : ${Sorted_keySet}" 
+                    data-th-text="${Country_Currency_Map.get(i).currencyName} + ' ' + ${Country_Currency_Map.get(i).currencySymbol}"
+                    data-th-value="${Country_Currency_Map.get(i).currencyId}">
+                </option></select></p>
+                <p>To: <select name="to" id="to" data-th-object="${Country_Currency_Map}">
+                    <option 
+                        data-th-each="i : ${Sorted_keySet}" 
+                        data-th-text="${Country_Currency_Map.get(i).currencyName} + ' ' + ${Country_Currency_Map.get(i).currencySymbol}"
+                        data-th-value="${Country_Currency_Map.get(i).currencyId}">
+                    </option></select></p>
+            <p>Value: <input type="text" name="amount" id="amount" min="0"></p>
+            <button type="submit">Convert</button>
+        </form>
+        <div data-th-if="${convertedCurrency != null}">
+            Conversion result:
+            <div data-th-object="${convertedCurrency}">
+                <p data-th-text="*{from} + ':' + *{fromSymbol} + *{inputValue}"></p>
+                <p data-th-text="*{to} + ': ' + *{toSymbol} + *{outputValue}"></p>
+            </div>
+        </div>
+
+    </body>
+</html>
